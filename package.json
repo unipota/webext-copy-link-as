@@ -1,0 +1,23 @@
+{
+  "name": "copy-link-as",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start:firefox": "web-ext run --firefox --source-dir ./src/",
+    "dev": "webpack -w --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
+    "lint": "web-ext lint"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "ts-loader": "^9.1.1",
+    "typescript": "^4.2.4",
+    "web-ext": "^6.1.0",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0"
+  }
+}

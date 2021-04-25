@@ -1,0 +1,29 @@
+{
+	"manifest_version": 2,
+	"name": "CopyLinkAs",
+	"description": "description",
+	"version": "0.0.1",
+	"homepage_url": "https://example.com",
+
+	"icons": {
+		"16": "icons/icon.png",
+		"32": "icons/icon.png",
+		"64": "icons/icon.png"
+	},
+
+	"background": {
+		"scripts": [
+				"background.js"
+		]
+	},
+
+	"options_ui": {
+		"page": "options/index.html"
+	},
+	
+	"permissions": [
+		"activeTab",
+		"menus",
+		"clipboardWrite"
+	]
+}
