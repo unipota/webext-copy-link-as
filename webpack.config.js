@@ -1,7 +1,7 @@
 "use strict";
 /** @type {import('webpack').Configuration} */
 
-const WebExtPlugin = require("./webpack.webext");
+const WebExtPlugin = require("./webpack.webext.plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CommentJson = require("comment-json");
 const package_json = require("./package.json");
@@ -10,6 +10,7 @@ const path = require("path");
 module.exports = {
   mode: process.env.NODE_ENV,
   context: path.resolve(__dirname, "./src"),
+  devtool: "inline-source-map", // workaround for issue of unsafe-eval
   entry: {
     "background/index": "./background/index.ts",
     "options/index": "./options/index.ts",
