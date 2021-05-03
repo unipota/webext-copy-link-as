@@ -7,13 +7,12 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start:firefox": "web-ext run --firefox --source-dir ./src/",
     "dev": "yarn dev:firefox-desktop",
     "dev:firefox-desktop": "cross-env BROWSER_TARGET='firefox-desktop' yarn watch",
     "dev:firefox-android": "cross-env BROWSER_TARGET='firefox-desktop' yarn watch",
     "dev:chromium": "cross-env BROWSER_TARGET='chromium' yarn watch",
-    "watch": "cross-env NODE_ENV=\"development\" webpack -w --config webpack.config.js",
-    "build": "cross-env NODE_ENV=\"production\" webpack --config webpack.config.js",
+    "watch": "cross-env NODE_ENV='development' webpack -w --config webpack.config.js",
+    "build": "cross-env NODE_ENV='production' webpack --config webpack.config.js",
     "lint": "web-ext lint --source-dir ./dist/"
   },
   "dependencies": {
