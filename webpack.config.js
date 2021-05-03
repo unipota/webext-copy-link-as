@@ -12,7 +12,7 @@ module.exports = {
   context: path.resolve(__dirname, "./src"),
   entry: {
     "background/index": "./background/index.ts",
-    // "options/index": "./options/index.ts",
+    "options/index": "./options/index.ts",
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -57,14 +57,14 @@ module.exports = {
           to: "./icons",
         },
         // options
-        // {
-        //   from: "./options/index.html",
-        //   to: "./options/index.html",
-        //   transform: {
-        //     transformer: transformHtml,
-        //     cache: true,
-        //   },
-        // },
+        {
+          from: "./options/index.html",
+          to: "./options/index.html",
+          transform: {
+            transformer: transformHtml,
+            cache: true,
+          },
+        },
         // popup
         // {
         //   from: "./popup/index.html",
@@ -76,7 +76,7 @@ module.exports = {
         // },
       ],
     }),
-    new WebExtPlugin({ sourceDir: "dist" }),
+    new WebExtPlugin({ sourceDir: "dist", target: process.env.BROWSER_TARGET }),
   ],
 };
 
