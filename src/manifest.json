@@ -12,8 +12,9 @@
 	},
 
 	"background": {
+		"persistent": false,
 		"scripts": [
-				"background.js"
+				"background/index.js"
 		]
 	},
 

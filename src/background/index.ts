@@ -1,3 +1,5 @@
+import { browser } from "webextension-polyfill-ts";
+
 const onCreated = () => {
   console.log("created!");
 };
@@ -21,9 +23,10 @@ browser.menus.create(
 );
 
 browser.menus.onClicked.addListener((info, tab) => {
+  if (!tab) return;
   if (info.menuItemId === "copy-link-to-clipboard") {
     const text = "This is text: " + info.linkUrl;
-    const safeUrl = escapeHTML(info.linkUrl);
+    const safeUrl = escapeHTML(info.linkUrl ?? "");
     const html = `This is HTML: <a href="${safeUrl}">${safeUrl}</a>`;
     console.log(text, html);
     const code =
@@ -59,7 +62,7 @@ browser.menus.onClicked.addListener((info, tab) => {
 });
 
 // https://gist.github.com/Rob--W/ec23b9d6db9e56b7e4563f1544e0d546
-function escapeHTML(str) {
+function escapeHTML(str: string) {
   return String(str)
     .replace(/&/g, "&amp;")
     .replace(/"/g, "&quot;")
