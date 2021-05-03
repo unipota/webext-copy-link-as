@@ -7,12 +7,16 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "dev": "yarn dev:firefox-desktop",
-    "dev:firefox-desktop": "cross-env BROWSER_TARGET='firefox-desktop' yarn watch",
-    "dev:firefox-android": "cross-env BROWSER_TARGET='firefox-desktop' yarn watch",
+    "dev": "yarn dev:firefox",
+    "dev:firefox": "cross-env BROWSER_TARGET='firefox-desktop' yarn watch",
+    "dev:firefox-android": "cross-env BROWSER_TARGET='firefox-android' yarn watch",
     "dev:chromium": "cross-env BROWSER_TARGET='chromium' yarn watch",
     "watch": "cross-env NODE_ENV='development' webpack -w --config webpack.config.js",
-    "build": "cross-env NODE_ENV='production' webpack --config webpack.config.js",
+    "build": "yarn build:firefox",
+    "build:firefox" : "cross-env BROWSER_TARGET='firefox-desktop' yarn prod",
+    "build:firefox-android" : "cross-env BROWSER_TARGET='firefox-android' yarn prod",
+    "build:chromium" : "cross-env BROWSER_TARGET='chromium' yarn prod",
+    "prod": "cross-env NODE_ENV='production' webpack --config webpack.config.js",
     "lint": "web-ext lint --source-dir ./dist/"
   },
   "dependencies": {

@@ -76,7 +76,11 @@ module.exports = {
         // },
       ],
     }),
-    new WebExtPlugin({ sourceDir: "dist", target: process.env.BROWSER_TARGET }),
+    new WebExtPlugin({
+      sourceDir: "dist",
+      artifactsDir: "artifacts",
+      target: process.env.BROWSER_TARGET ?? "firefox-desktop",
+    }),
   ],
 };
 

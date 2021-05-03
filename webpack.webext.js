@@ -52,6 +52,18 @@ class WebExtPlugin {
         );
 
         if (!this.watchMode) {
+          await webExt.cmd.build({
+            artifactsDir: this.artifactsDir,
+            browserConsole: this.browserConsole,
+            sourceDir: this.sourceDir,
+            target: this.target,
+            firefox: this.firefox,
+            firefoxProfile: this.firefoxProfile,
+            keepProfileChanges: this.keepProfileChanges,
+            profileCreateIfMissing: this.profileCreateIfMissing,
+            startUrl: this.startUrl,
+            noReload: true,
+          });
           return;
         }
 
