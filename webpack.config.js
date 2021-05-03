@@ -10,7 +10,6 @@ const path = require("path");
 module.exports = {
   mode: process.env.NODE_ENV,
   context: path.resolve(__dirname, "./src"),
-  devtool: "inline-source-map", // workaround for issue of unsafe-eval
   entry: {
     "background/index": "./background/index.ts",
     "options/index": "./options/index.ts",
@@ -83,6 +82,9 @@ module.exports = {
       target: process.env.BROWSER_TARGET ?? "firefox-desktop",
     }),
   ],
+  // workaround for issue of unsafe-eval
+  // https://github.com/webpack/webpack/issues/4899
+  devtool: "inline-source-map",
 };
 
 // transform content

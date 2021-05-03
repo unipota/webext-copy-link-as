@@ -24,7 +24,7 @@
 	
 	"permissions": [
 		"activeTab",
-		"menus",
+		"contextMenus",
 		"clipboardWrite"
 	]
 }

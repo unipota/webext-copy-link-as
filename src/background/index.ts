@@ -4,7 +4,7 @@ const onCreated = () => {
   console.log("created!");
 };
 
-browser.menus.create(
+browser.contextMenus.create(
   {
     id: "copy-link-to-clipboard",
     title: "HTML",
@@ -13,7 +13,7 @@ browser.menus.create(
   onCreated
 );
 
-browser.menus.create(
+browser.contextMenus.create(
   {
     id: "copy-link-to-clipboard-mardown",
     title: "Markdown",
@@ -22,7 +22,7 @@ browser.menus.create(
   onCreated
 );
 
-browser.menus.onClicked.addListener((info, tab) => {
+browser.contextMenus.onClicked.addListener((info, tab) => {
   if (!tab) return;
   if (info.menuItemId === "copy-link-to-clipboard") {
     const text = "This is text: " + info.linkUrl;
