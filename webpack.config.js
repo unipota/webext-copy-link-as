@@ -3,6 +3,8 @@
 
 const WebExtPlugin = require("./webpack.webext.plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CommentJson = require("comment-json");
 const package_json = require("./package.json");
 const path = require("path");
@@ -24,6 +26,28 @@ module.exports = {
         test: /\.ts$/,
         use: "ts-loader",
       },
+      {
+        test: /.s?css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/images/[hash][ext][query]",
+        },
+      },
+      {
+        test: /\.ico$/,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/icons/[hash][ext][query]",
+        },
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        type: "asset/inline",
+      },
     ],
   },
   resolve: {
@@ -33,7 +57,14 @@ module.exports = {
     },
     modules: ["node_modules"],
   },
+  optimization: {
+    // minimize: true,
+    minimizer: [new CssMinimizerPlugin()],
+  },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new CopyWebpackPlugin({
       patterns: [
         // manifest.json
