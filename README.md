@@ -3,3 +3,5 @@
     alt="GitHub Actions workflow status"/></a>
 
 (WIP) WebExtension Boilerplate with Typescript & mozzila/web-ext
+
+これはWebExtensionのモダンな開発環境整備のために開発中のサンプルです。
