@@ -1,14 +1,14 @@
 {
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
   ],
   "exclude": [
     "node_modules"
   ],
   "compilerOptions": {
     // Project Options
-    "allowJs": false,
+    "allowJs": true,
     "declaration": false,
     "declarationMap": false,
     "downlevelIteration": false,

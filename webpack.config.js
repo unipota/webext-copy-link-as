@@ -15,6 +15,7 @@ module.exports = {
   entry: {
     "background/index": "./background/index.ts",
     "options/index": "./options/index.ts",
+    // "content/index": "./content/index.ts",
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -47,6 +48,10 @@ module.exports = {
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         type: "asset/inline",
+      },
+      {
+        test: /\.txt$/,
+        type: "asset/source",
       },
     ],
   },

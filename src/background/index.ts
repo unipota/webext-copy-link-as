@@ -1,7 +1,8 @@
 import { browser } from "webextension-polyfill-ts";
+import * as clipboard from "./clipboard.js.txt";
 
 const onCreated = () => {
-  console.log("created!");
+  console.log("contextMenu created!");
 };
 
 browser.contextMenus.create(
@@ -15,50 +16,37 @@ browser.contextMenus.create(
 
 browser.contextMenus.create(
   {
-    id: "copy-link-to-clipboard-mardown",
+    id: "copy-link-to-clipboard-markdown",
     title: "Markdown",
     contexts: ["all"],
   },
   onCreated
 );
 
-browser.contextMenus.onClicked.addListener((info, tab) => {
+browser.contextMenus.onClicked.addListener(async (info, tab) => {
   if (!tab) return;
-  if (info.menuItemId === "copy-link-to-clipboard") {
-    const text = "This is text: " + info.linkUrl;
-    const safeUrl = escapeHTML(info.linkUrl ?? "");
-    const html = `This is HTML: <a href="${safeUrl}">${safeUrl}</a>`;
-    console.log(text, html);
-    const code =
-      "copyToClipboard(" +
-      JSON.stringify(text) +
-      "," +
-      JSON.stringify(html) +
-      ");";
 
-    browser.tabs
-      .executeScript({
-        code: "typeof copyToClipboard === 'function';",
-      })
-      .then((results) => {
-        // The content script's last expression will be true if the function
-        // has been defined. If this is not the case, then we need to run
-        // clipboard-helper.js to define function copyToClipboard.
-        if (!results || results[0] !== true) {
-          return browser.tabs.executeScript(tab.id, {
-            file: "content/clipboard.js",
-          });
-        }
-      })
-      .then(() => {
-        return browser.tabs.executeScript(tab.id, {
-          code,
-        });
-      })
-      .catch((error) => {
-        console.error("Failed to copy text: " + error);
-      });
+  const { title, url } = tab;
+  const safeUrl = escapeHTML(url ?? "");
+  let text;
+  switch (info.menuItemId) {
+    case "copy-link-to-clipboard":
+      text = `<a href=\'${safeUrl}\'>${title}</a>`;
+      break;
+    case "copy-link-to-clipboard-markdown":
+      text = `[${title}](${safeUrl})`;
+      break;
   }
+  const copyCode = `copyToClipboard("${text}");`;
+
+  browser.tabs
+    .executeScript(tab.id, { code: clipboard.default })
+    .then((_) => {
+      return browser.tabs.executeScript(tab.id, { code: copyCode });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // https://gist.github.com/Rob--W/ec23b9d6db9e56b7e4563f1544e0d546
