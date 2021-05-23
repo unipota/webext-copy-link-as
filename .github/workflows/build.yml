@@ -26,10 +26,10 @@ jobs:
         run: npm install
 
       - name: Build for Firefox
-        run: npm build:firefox
+        run: npm run build:firefox
 
       - name: Build for Chromium
-        run: npm build:chromium
+        run: npm run build:chromium
 
       - name: Linting
-        run: npm lint
+        run: npm run lint
