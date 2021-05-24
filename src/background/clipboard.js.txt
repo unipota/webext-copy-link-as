@@ -1,11 +1,18 @@
-console.log("executed");
-
-function copyToClipboard(html, isHtml) {
+function copyToClipboard(value, type) {
   function listener(e) {
-    e.clipboardData.setData(isHtml ? "text/html" : "text/plain", html);
-    e.preventDefault();
+    e.clipboardData.setData(type, value)
+    e.preventDefault()
   }
-  document.addEventListener("copy", listener);
-  document.execCommand("copy");
-  document.removeEventListener("copy", listener);
+  console.log(value)
+  document.addEventListener('copy', listener)
+  document.execCommand('copy')
+  document.removeEventListener('copy', listener)
+}
+
+function copyHtml(html) {
+  copyToClipboard(html, 'text/html')
+}
+
+function copyText(value) {
+  copyToClipboard(value, 'text/plain')
 }

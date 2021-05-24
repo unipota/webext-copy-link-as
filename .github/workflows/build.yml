@@ -25,11 +25,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build for Firefox
-        run: npm run build:firefox
-
-      - name: Build for Chromium
-        run: npm run build:chromium
+      - name: Build
+        run: npm run build
 
       - name: Linting
         run: npm run lint

@@ -12,11 +12,7 @@
     "dev:firefox-android": "cross-env BROWSER_TARGET='firefox-android' npm run watch",
     "dev:chromium": "cross-env BROWSER_TARGET='chromium' npm run watch",
     "watch": "cross-env NODE_ENV='development' webpack -w",
-    "build": "npm run build:firefox",
-    "build:firefox": "cross-env BROWSER_TARGET='firefox-desktop' npm run prod",
-    "build:firefox-android": "cross-env BROWSER_TARGET='firefox-android' npm run prod",
-    "build:chromium": "cross-env BROWSER_TARGET='chromium' npm run prod",
-    "prod": "cross-env NODE_ENV='production' webpack",
+    "build": "cross-env NODE_ENV='production' webpack",
     "lint": "web-ext lint --source-dir ./dist/"
   },
   "dependencies": {
