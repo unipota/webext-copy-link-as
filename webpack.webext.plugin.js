@@ -1,12 +1,12 @@
-const path = require("path");
-const webExt = require("web-ext");
+const path = require('path')
+const webExt = require('web-ext')
 
-const pluginName = "WebExtPlugin";
+const pluginName = 'WebExtPlugin'
 
 class WebExtPlugin {
   constructor({
     sourceDir = process.cwd(),
-    artifactsDir = path.join(sourceDir, "web-ext-artifacts"),
+    artifactsDir = path.join(sourceDir, 'web-ext-artifacts'),
     browserConsole = false,
     firefox,
     firefoxProfile,
@@ -15,23 +15,23 @@ class WebExtPlugin {
     startUrl,
     target,
   } = {}) {
-    this.runner = null;
-    this.watchMode = false;
-    this.artifactsDir = artifactsDir;
-    this.browserConsole = browserConsole;
-    this.firefox = firefox;
-    this.firefoxProfile = firefoxProfile;
-    this.keepProfileChanges = keepProfileChanges;
-    this.profileCreateIfMissing = profileCreateIfMissing;
-    this.sourceDir = path.resolve(__dirname, sourceDir);
-    this.startUrl = startUrl;
-    this.target = target;
+    this.runner = null
+    this.watchMode = false
+    this.artifactsDir = artifactsDir
+    this.browserConsole = browserConsole
+    this.firefox = firefox
+    this.firefoxProfile = firefoxProfile
+    this.keepProfileChanges = keepProfileChanges
+    this.profileCreateIfMissing = profileCreateIfMissing
+    this.sourceDir = path.resolve(__dirname, sourceDir)
+    this.startUrl = startUrl
+    this.target = target
   }
 
   apply(compiler) {
     const watchRun = async (compiler) => {
-      this.watchMode = true;
-    };
+      this.watchMode = true
+    }
 
     const afterEmit = async (compilation) => {
       try {
@@ -40,7 +40,7 @@ class WebExtPlugin {
             artifactsDir: this.artifactsDir,
             boring: false,
             metadata: false,
-            output: "text",
+            output: 'text',
             pretty: false,
             sourceDir: this.sourceDir,
             verbose: false,
@@ -49,7 +49,7 @@ class WebExtPlugin {
           {
             shouldExitProgram: false,
           }
-        );
+        )
 
         if (!this.watchMode) {
           await webExt.cmd.build({
@@ -63,13 +63,13 @@ class WebExtPlugin {
             profileCreateIfMissing: this.profileCreateIfMissing,
             startUrl: this.startUrl,
             noReload: true,
-          });
-          return;
+          })
+          return
         }
 
         if (this.runner) {
-          this.runner.reloadAllExtensions();
-          return;
+          this.runner.reloadAllExtensions()
+          return
         }
 
         await webExt.cmd
@@ -88,28 +88,28 @@ class WebExtPlugin {
             },
             {}
           )
-          .then((runner) => (this.runner = runner));
+          .then((runner) => (this.runner = runner))
 
         if (!this.runner) {
-          return;
+          return
         }
 
         this.runner.registerCleanup(() => {
-          this.runner = null;
-        });
+          this.runner = null
+        })
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
-    };
+    }
 
     if (compiler.hooks) {
-      compiler.hooks.afterEmit.tapPromise({ name: pluginName }, afterEmit);
-      compiler.hooks.watchRun.tapPromise({ name: pluginName }, watchRun);
+      compiler.hooks.afterEmit.tapPromise({ name: pluginName }, afterEmit)
+      compiler.hooks.watchRun.tapPromise({ name: pluginName }, watchRun)
     } else {
-      compiler.plugin("afterEmit", afterEmit);
-      compiler.plugin("watchRun", watchRun);
+      compiler.plugin('afterEmit', afterEmit)
+      compiler.plugin('watchRun', watchRun)
     }
   }
 }
 
-module.exports = WebExtPlugin;
+module.exports = WebExtPlugin

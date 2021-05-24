@@ -1,9 +1,8 @@
 console.log("executed");
 
-function copyToClipboard(html) {
+function copyToClipboard(html, isHtml) {
   function listener(e) {
-    e.clipboardData.setData("text/html", html);
-    e.clipboardData.setData("text/plain", html);
+    e.clipboardData.setData(isHtml ? "text/html" : "text/plain", html);
     e.preventDefault();
   }
   document.addEventListener("copy", listener);
